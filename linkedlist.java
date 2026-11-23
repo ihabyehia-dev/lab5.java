@@ -1,5 +1,6 @@
 package ihablab4;
 
+/** Linked list exercises with insertions, deletions and statistics. */
 public class linkedlist {
     Node head;
     String name;
