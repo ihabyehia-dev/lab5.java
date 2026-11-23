@@ -1,5 +1,6 @@
 package ihablab4;
 
+/** A single integer node used by the linked list. */
 public class Node {
     int data;
     Node next;
