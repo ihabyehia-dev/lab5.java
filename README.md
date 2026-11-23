@@ -13,4 +13,4 @@ A student linked-list implementation with custom nodes. This lab explores insert
 The Java files use package `ihablab4`. Create that package in Eclipse and add `Node.java`, `linkedlist.java`, and `linkmain.java`. Run `linkmain.java`.
 
 ## Note
-This repository records the original learning process. The node constructor, traversal loops, insertion, deletion, average, maximum and sorted-check logic have now been corrected. Positions in `deleteatposition` are 1-based.
+This linked-list exercise includes node constructors, traversal, insertion, deletion, averaging, maximum-value search and sorted-order checks. Positions in `deleteatposition` are 1-based.
