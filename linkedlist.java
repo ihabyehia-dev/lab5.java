@@ -1,186 +1,139 @@
 package ihablab4;
 
-import java.util.*;
-
 public class linkedlist {
-	Node head;
-	String name;
+    Node head;
+    String name;
 
-	linkedlist() {
-		this.name = name;
-		this.head = head;
-	}
+    linkedlist() {
+        this("Linked List");
+    }
 
-	linkedlist(String name) {
-		this.name = null;
-		this.head = null;
-	}
+    linkedlist(String name) {
+        this.name = name;
+        head = null;
+    }
 
-	Node h = new Node();
+    linkedlist(Node h) {
+        this("Linked List");
+        head = h;
+    }
 
-	linkedlist(Node h) {
-		this.h = null;
-	}
+    boolean isempty() {
+        return head == null;
+    }
 
-	boolean isempty() {
-		boolean ok = true;
-		if (h == null) {
-			ok = false;
-			h = head;
-		}
-		return ok;
+    void insertatfront(int d) {
+        Node n = new Node(d);
+        n.next = head;
+        head = n;
+    }
 
-	}
+    void insertatback(int d) {
+        Node n = new Node(d);
+        if (isempty()) {
+            head = n;
+            return;
+        }
+        Node current = head;
+        while (current.next != null) current = current.next;
+        current.next = n;
+    }
 
-	void insertatfront(int d) {
-		Node n = new Node(d);
-		if (isempty() == false) {
-			n.next = head;
-			head = n;
-		} else {
-			head = n;
-		}
-	}
+    void insertafter(int element, int targetElement) {
+        Node current = head;
+        while (current != null && current.data != targetElement) current = current.next;
+        if (current == null) return;
+        Node n = new Node(element);
+        n.next = current.next;
+        current.next = n;
+    }
 
-	void insertatback(int d) {
-		Node z = new Node(d);
-		if (isempty() == true) {
-			head = z;
-		} else {
-			Node current = head;
-			while (current.next != null) {
-				current = current.next;
-			}
-			current.next = z;
-		}
-	}
+    void display() {
+        Node current = head;
+        while (current != null) {
+            System.out.print(current.data + " -> ");
+            current = current.next;
+        }
+        System.out.println("null");
+    }
 
-	void insertafter(int element, int targetElement) {
-		Node n = new Node(element);
-		if (isempty() == true) {
-			head = n;
-		} else {
-			Node current = head;
-			int prev;
-			while (current.next != null) {
-				prev = current.data;
-				current = current.next;
-				if (current.data == targetElement) {
-					prev = element;
-				}
-			}
-		}
-	}
+    void deletefromfront() {
+        if (!isempty()) head = head.next;
+    }
 
-	void display() {
-		Node n = new Node();
-		while (n.next != null) {
-			System.out.println(n.data + " -> ");
-		}
-	}
+    void deletefromback() {
+        if (isempty()) return;
+        if (head.next == null) {
+            head = null;
+            return;
+        }
+        Node current = head;
+        while (current.next.next != null) current = current.next;
+        current.next = null;
+    }
 
-	void deletefromfront() {
-		Node n = new Node();
-		n.data = 0;
-		head = n.next;
-	}
+    // Positions start at 1, so position 1 removes the first node.
+    void deleteatposition(int pos) {
+        if (pos < 1 || isempty()) return;
+        if (pos == 1) {
+            deletefromfront();
+            return;
+        }
+        Node current = head;
+        for (int i = 1; i < pos - 1 && current != null; i++) current = current.next;
+        if (current != null && current.next != null) current.next = current.next.next;
+    }
 
-	void deletefromback() {
-		Node n = new Node();
-		Node current = head;
-		Node prev = head;
-		while (current.next != null) {
-			prev = current;
-			current = current.next;
-			if (current.next == null) {
-				prev.next = null;
-			}
-		}
-	}
+    int occurenceNB(int a) {
+        int count = 0;
+        Node current = head;
+        while (current != null) {
+            if (current.data == a) count++;
+            current = current.next;
+        }
+        return count;
+    }
 
-	void deleteatposition(int pos) {
-		Node n = new Node();
-		Node current = head;
-		int count = 0;
-		Node prev = current;
-		while (current.next != null) {
-			prev = current;
-			current = current.next;
-			if (current.data == pos) {
-				prev = current;
-				current.next = current.next.next;
-			}
-		}
-	}
+    int evenNBs() {
+        int count = 0;
+        Node current = head;
+        while (current != null) {
+            if (current.data % 2 == 0) count++;
+            current = current.next;
+        }
+        return count;
+    }
 
-	int occurenceNB(int a) {
-		Node n = new Node();
-		int count = 0;
-		Node current = head;
-		while (current.next != null) {
-			if (current.data == a) {
-				count++;
-			}
-		}
-		return count;
-	}
+    int maximum() {
+        if (isempty()) return -1;
+        int max = head.data;
+        Node current = head.next;
+        while (current != null) {
+            if (current.data > max) max = current.data;
+            current = current.next;
+        }
+        return max;
+    }
 
-	int evenNBs() {
-		int counteven = 0;
-		Node n = new Node();
-		Node current = head;
-		while (current.next != null) {
-			if (current.data % 2 == 0) {
-				counteven++;
-			}
-		}
+    boolean issorted() {
+        Node current = head;
+        while (current != null && current.next != null) {
+            if (current.data > current.next.data) return false;
+            current = current.next;
+        }
+        return true;
+    }
 
-		return counteven;
-	}
-
-	int maximum() {
-		Node n = new Node();
-		int max = 0;
-		Node current = head;
-
-		while (current.next != null) {
-			if (current.data > max) {
-				max = current.data;
-			} else {
-				max = max;
-			}
-		}
-		return max;
-	}
-
-	boolean issorted() {
-		Node n = new Node();
-		Node current = head;
-		boolean sorted = false;
-
-		while (current.next != null) {
-			if (current.data < current.next.data) {
-				sorted = true;
-			} else {
-				return sorted = false;
-			}
-		}
-		return sorted;
-	}
-
-	double average() {
-		Node n = new Node();
-		Node current = head;
-		double average = 0;
-		double sum = 0;
-		int count = 0;
-		while (current.next != null) {
-			count++;
-			sum += current.data;
-		}
-
-		return average = sum / count;
-	}
-	
-
+    double average() {
+        int count = 0;
+        int sum = 0;
+        Node current = head;
+        while (current != null) {
+            sum += current.data;
+            count++;
+            current = current.next;
+        }
+        if (count == 0) return 0;
+        return (double) sum / count;
+    }
 }
